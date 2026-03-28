@@ -58,6 +58,14 @@ with col1:
             # Update the frame in the UI
             frame_placeholder.image(rgb_frame, channels="RGB")
 
+            # Update status in result_container
+            if "REAL" in current_status:
+                result_container.success(f"STATUS: {current_status}")
+            elif "FAKE" in current_status:
+                result_container.error(f"STATUS: {current_status}")
+            else:
+                result_container.warning(f"STATUS: {current_status}")
+
             # Check if user clicked the stop checkbox
             # (Note: this simple loop might be slow in Streamlit, but it's the "basic" way)
             # A more robust way would be using `streamlit-webrtc` but it's more complex.
@@ -67,14 +75,9 @@ with col1:
         st.info("Check 'Start Webcam Feed' to begin detection.")
 
 with col2:
-    st.subheader("System Status")
-    status_metric = st.empty()
-    blink_metric = st.empty()
-    depth_metric = st.empty()
-
-    # This part would ideally update in real-time, but Streamlit's architecture
-    # makes it a bit tricky without `st.session_state` updates inside the loop.
-    # For now, the status is already displayed on the frame.
+    st.subheader("Live Results")
+    # Placeholders for dynamic updates
+    result_container = st.empty()
     st.info("The system analyzes eye blinks and face depth variation.")
     st.warning("Ensure good lighting for better accuracy.")
 

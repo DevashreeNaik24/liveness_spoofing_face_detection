@@ -30,6 +30,7 @@ class LivenessDetector:
         v2 = dist.euclidean(eye_landmarks[2], eye_landmarks[4])
         # Compute the distance between the horizontal eye landmarks
         h = dist.euclidean(eye_landmarks[0], eye_landmarks[3])
+        
         # Eye Aspect Ratio
         ear = (v1 + v2) / (2.0 * h)
         return ear
@@ -74,10 +75,10 @@ class LivenessDetector:
 
                 # Heuristic thresholds (may need tuning)
                 if z_std > 0.02 and self.blink_count > 0:
-                    status = "LIVE"
+                    status = "REAL / LIVE"
                     color = (0, 255, 0) # Green
                 elif z_std < 0.015:
-                    status = "SPOOF (Photo?)"
+                    status = "FAKE / SPOOF"
                     color = (0, 0, 255) # Red
                 else:
                     status = "Detecting..."
